@@ -35,6 +35,7 @@ Generates a new story.
   "sadness_score": 2,
   "age": 5
 }
+```
 
 ### GET /api/getstories 
 Returns a list of all stories generated.
