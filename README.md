@@ -35,3 +35,12 @@ Generates a new story.
   "sadness_score": 2,
   "age": 5
 }
+
+### GET /api/getstories 
+Returns a list of all stories generated.
+
+[!CAUTION]
+Data Persistence Notice:
+Currently, stories are stored in a local JavaScript array. This is a temporary session-based list 
+
+Future Improvements: > For a production-ready app, we should replace this array with a persistent database like Supabase or PostgreSQL to ensure that stories are saved permanently and don't disappear when the server restarts.
