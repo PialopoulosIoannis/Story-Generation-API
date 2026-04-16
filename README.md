@@ -40,7 +40,7 @@ Generates a new story.
 ### GET /api/getstories 
 Returns a list of all stories generated.
 
-[!CAUTION]
+
 Data Persistence Notice:
 Currently, stories are stored in a local JavaScript array. This is a temporary session-based list 
 
