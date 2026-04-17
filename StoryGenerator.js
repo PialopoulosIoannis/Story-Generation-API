@@ -15,36 +15,49 @@ stories = [];
 router.post("/", async (req,res)=>{
 
     const theme=req.body.theme;
-    const happiness_score=req.body.happiness_score;
-    const sadness_score=req.body.sadness_score;
+    const goal=req.body.goal;
+    const who_talking=req.body.who_talking;
     const age=req.body.age;
+    const duration=req.body.duration;
 
-    const prompt = `The age is ${age}. 
-    e ${happiness_score}/10 happy and
-    ${sadness_score}/10 sad.
-    The theme of the story is ${theme} `; 
+
+    const prompt = `I want you to write a story about kids who are ${age} years old.
+    The story should be about ${theme} and should teach/its goal is : ${goal}.
+    The story will be told by ${who_talking} to the ${age} years old kids.
+    The story should be approximately ${duration} minutes long.
+    Follow these strict rules:
+    - The story must be engaging and suitable for ${age} years old kids.`; 
 
     try {
-        // 3. Call Ollama (I'm using 'qwen' since you mentioned it)
+        
         const response = await ollama.generate({
-            model: 'storymaker_tinydolphin', 
+            model: 'StoryTeller_llama3.2:3b', 
             prompt: prompt,
-            stream: false // This makes it wait until the whole story is done
+            stream: false 
         } );
     
 
 
-        // 4. Store the story in a variable and send it back
-        const generatedStory = response.response;
-        
-        created_story= {
-            story: generatedStory,
-            metadata: { theme, age },
-            id: stories.length +1
-        };
-        stories.push(created_story);
+       
+        const answer = JSON.parse(response.response);
 
-        res.json(generatedStory);
+        
+        const title = answer.title;
+        const story = answer.story;
+        const message = answer.message;
+
+        
+        const resultForFrontend = {
+            id: stories.length + 1,
+            title: title,
+            content: story,
+            moral: message,
+            ageGroup: req.body.age
+        };
+
+        stories.push(resultForFrontend);
+
+        res.json(resultForFrontend);
 
     } catch (error) {
     console.error("DEBUG ERROR:", error.message); 
