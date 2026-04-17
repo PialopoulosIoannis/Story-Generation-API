@@ -9,9 +9,10 @@ A lightweight Node.js backend that leverages **Local LLMs (Qwen via Ollama)** to
 - **RESTful API:** Clean endpoints for frontend integration.
 
 ## 🛠️ Tech 
-- **Node.js & Express
-- **Ollama (Model: custom model made from ollama3.2:3b)
+- **Node.js & Express**
+- **Ollama** (Model: custom model made from ollama3.2:3b, exists in repo)
 - **CORS** (Cross-Origin Resource Sharing)
+- **Supabase**
 
 ## 📡 API Endpoints
 
