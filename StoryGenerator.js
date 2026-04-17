@@ -38,8 +38,8 @@ router.post("/", async (req,res)=>{
     
 
 
-       
-        const answer = JSON.parse(response.response);
+       const cleanResponse = response.response.replace(/\n/g, "\\n").replace(/\r/g, "\\r");
+        const answer = JSON.parse(cleanResponse);
 
         
         const title = answer.title;
