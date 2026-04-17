@@ -4,11 +4,12 @@ const Joi= require('joi');
 const cors = require('cors');
 //const app=express();
 const router = express.Router();
+const supabase = require('./supabase');
 
 //app.use(express.json());
 //app.use(cors()); 
 
-stories = [];
+
 
 
 
@@ -33,6 +34,7 @@ router.post("/", async (req,res)=>{
         const response = await ollama.generate({
             model: 'StoryTeller_llama3.2:3b', 
             prompt: prompt,
+            //format: 'json',
             stream: false 
         } );
     
@@ -46,17 +48,26 @@ router.post("/", async (req,res)=>{
         const story = answer.story;
         const message = answer.message;
 
-        
+        const { data, error } = await supabase
+        .from('Stories') 
+        .insert([
+            { 
+                Title: title, 
+                Story: story, 
+                Age: age 
+            }
+        ]).select();
+
+        if(error) throw error;
+
         const resultForFrontend = {
-            id: stories.length + 1,
             title: title,
             content: story,
             moral: message,
             ageGroup: req.body.age
         };
 
-        stories.push(resultForFrontend);
-
+ 
         res.json(resultForFrontend);
 
     } catch (error) {
@@ -66,7 +77,7 @@ router.post("/", async (req,res)=>{
         error: "The AI is feeling shy today.",
         details: error.message 
     });
-}; 
+} 
 
 });
 

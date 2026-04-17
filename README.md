@@ -10,17 +10,7 @@ A lightweight Node.js backend that leverages **Local LLMs (Qwen via Ollama)** to
 
 ## 🛠️ Tech 
 - **Node.js & Express
-- **Ollama (Model: custom model made from tinydoplhin)
-    Modelinfo content :
-
-      FROM tinydolphin
-
-      PARAMETER temperature 1
-
-      SYSTEM """ 
-      You are a story writer. Your goal is to just write a short story as if you were writing for a book. You will be given the age of the person that the story is for, the        theme and how much happy or sad /10 they want the story to be. With these data you should write the story. 
-      """
-
+- **Ollama (Model: custom model made from ollama3.2:3b)
 - **CORS** (Cross-Origin Resource Sharing)
 
 ## 📡 API Endpoints
@@ -30,10 +20,11 @@ Generates a new story.
 **Body:**
 ```json
 {
-  "theme": "Pirates",
-  "happiness_score": 9,
-  "sadness_score": 2,
-  "age": 5
+     "theme" : "Pirates",
+     "goal" : "Happiness",
+     "who_talking" : "Teacher",
+     "age" : "8",  (Just a number)
+    "duration" : "5 minutes"
 }
 ```
 
